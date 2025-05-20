@@ -15,9 +15,6 @@ for test_case in range(1, T + 1):
 
     # 가로
     for line in sudoku:
-        if not available:
-            break
-
         nums = set()
         for num in line:
             if not (1 <= num <= 9):
@@ -26,46 +23,53 @@ for test_case in range(1, T + 1):
             if num in nums:
                 available = False
                 break
-    # 가로 검사
-    for row in sudoku:
+            else:
+                nums.add(num)
+    # 세로
+    columns = []
+    for j in range(9):
+        col = [sudoku[i][j] for i in range(9)]
+        columns.append(col)
+
+    for col in columns:
         if not available:
             break
+
         nums = set()
-        for num in row:
+        for num in col:
+            if not (1 <= num <= 9):
+                available = False
+                break
             if num in nums:
                 available = False
                 break
-            nums.add(num)
-
-    # 세로 검사
-    if available:
-        for j in range(9):
-            nums = set()
-            for i in range(9):
-                num = sudoku[i][j]
-                if num in nums:
-                    available = False
-                    break
+            else:
                 nums.add(num)
-            if not available:
-                break
+    # 네모
 
-    # 블록 검사
-    if available:
-        for i in range(0, 9, 3):
-            for j in range(0, 9, 3):
-                nums = set()
-                for dx in range(3):
-                    for dy in range(3):
-                        num = sudoku[i + dx][j + dy]
-                        if num in nums:
-                            available = False
-                            break
-                        nums.add(num)
-                if not available:
-                    break
-            if not available:
+    rectangles = []
+    for i in range(0, 9, 3):  # 시작 행: 0, 3, 6
+        for j in range(0, 9, 3):  # 시작 열: 0, 3, 6
+            block = []
+            for dx in range(3):
+                for dy in range(3):
+                    block.append(sudoku[i + dx][j + dy])
+                rectangles.append(block)
+
+    for r in rectangles:
+        if not available:
+            break
+
+        nums = set()
+        for num in r:
+            if not (1 <= num <= 9):
+                available = False
                 break
+            if num in nums:
+                available = False
+                break
+            else:
+                nums.add(num)
 
     if available:
         print(f"#{test_case} 1")
