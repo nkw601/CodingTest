@@ -5,12 +5,9 @@ def is_palindrome_col(sent, col, start, length):
         if sent[start + i][col] != sent[start + length - 1 - i][col]:
             return False
     return True
-
-
 T = 10
 for test_case in range(1, T + 1):
     n = input()
-    # ['ABCDADCDADCADC', 'ADFADFDSCDCAD', 'ADFADSCDAS']
     sent = [list(input()) for _ in range(100)]
     length = 0
     found = False
@@ -34,7 +31,8 @@ for test_case in range(1, T + 1):
     for length_col in range(100, 0, -1):
         for i in range(100):  # 세로 한 줄씩
             for start in range(0, 100 - length_col + 1):
-                if is_palindrome_col(sent, i, start, length_col):
+                substr = [sent[row][i] for row in range(start, start + length_col)]
+                if substr == substr[::-1]:
                     found = True
                     break
             if found:
