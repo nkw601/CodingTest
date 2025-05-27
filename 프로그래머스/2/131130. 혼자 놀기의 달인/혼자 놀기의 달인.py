@@ -18,7 +18,7 @@ def solution(cards):
             answer.append(dfs(i, set(), visited, cards))
 
     if len(answer) < 2:
-        return 0
+        return answer[0]
     else:
         answer.sort(reverse=True)
         return answer[0] * answer[1]
