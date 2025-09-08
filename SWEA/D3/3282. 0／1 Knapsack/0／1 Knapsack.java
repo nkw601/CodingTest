@@ -1,3 +1,5 @@
+
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,24 +32,20 @@ public class Solution {
 			
 			//계산
 			// knapsack 알고리즘: 
-			int[][] dp = new int[N + 1][K + 1];
+//			int[][] dp = new int[N + 1][K + 1];
+			int[] dp = new int[K+1];
 			// 선택 가능한 물건 0~N개까지 
 			for(int n = 1; n <= N; n++) {
-				// 담을 수 있는 부피 0 ~ K까지
-				for(int k = 0; k <= K; k++) {
-					// 못 넣는 경우
-					if(volumes[n] > k) {
-						dp[n][k] = dp[n - 1][k];
-					} else{ 
-						// 1. 이번 물품 선택 O
-						// 2. 이번 물품 선택 X
-						dp[n][k] = Math.max(dp[n - 1][k], dp[n - 1][k - volumes[n]] + values[n]);
-						
+				for(int k = K; k >= 0; k--) {
+					if(k - volumes[n] >= 0) {
+						dp[k] = Math.max(dp[k], dp[k - volumes[n]] + values[n]);						
+					} else {
+						continue;
 					}
 				}
 			}
 			
-			sb.append("#").append(tc).append(" ").append(dp[N][K]).append('\n');
+			sb.append("#").append(tc).append(" ").append(dp[K]).append('\n');
 		}
 		
 		System.out.println(sb);
