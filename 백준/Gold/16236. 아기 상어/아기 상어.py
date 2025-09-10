@@ -1,6 +1,10 @@
 import sys
 from collections import deque
 
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+global n
+
 
 def bfs(start, shark_size=2):
     que = deque()
@@ -9,8 +13,6 @@ def bfs(start, shark_size=2):
 
     visited[start[0]][start[1]] = True
     fish_list = []
-    dx = [-1, 1, 0, 0]
-    dy = [0, 0, -1, 1]
 
     while que:
         x, y, distance = que.popleft()
@@ -34,8 +36,6 @@ def bfs(start, shark_size=2):
 
 
 data = sys.stdin.read().splitlines()
-# data = list(map(str, sys.stdin.readlines()))
-global n
 
 n = int(data[0])
 maps = [list(map(int, line.split())) for line in data[1:]]
