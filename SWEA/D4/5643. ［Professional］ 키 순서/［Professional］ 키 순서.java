@@ -76,8 +76,7 @@ public class Solution {
 		// 나보다 키 작은 사람
 		q.clear();
 		q.add(start);
-		visited = new boolean[N];
-		visited[start] = true;
+
 		int shortCnt = 0;
 		while(!q.isEmpty()) {
 			int cur = q.poll();
