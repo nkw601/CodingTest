@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,8 +8,7 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Solution {
-	static int N, M;
-	static int[][] students;
+	static int N, M, canKnow;
 	static ArrayList<Integer>[] taller, shorter;
 	
 	@SuppressWarnings("unchecked")
@@ -25,7 +25,6 @@ public class Solution {
 			
 			taller = new ArrayList[N];
 			shorter = new ArrayList[N];
-			students = new int[N][2]; // 큰 애들 / 작은 애들 저장
 			for(int i = 0; i < N; i++) {
 				taller[i] = new ArrayList<Integer>();
 				shorter[i] = new ArrayList<Integer>();
@@ -39,12 +38,9 @@ public class Solution {
 				taller[s1].add(s2);
 				shorter[s2].add(s1);
 			}
-			int canKnow = 0;
+			canKnow = 0;
 			for(int i = 0; i < N; i++) {
 				bfs(i);
-				if(students[i][0] + students[i][1] == N - 1) {
-					canKnow++;
-				}
 			}
 			
 			sb.append("#").append(tc).append(" ").append(canKnow).append("\n");
@@ -76,7 +72,8 @@ public class Solution {
 		// 나보다 키 작은 사람
 		q.clear();
 		q.add(start);
-
+		visited = new boolean[N];
+		visited[start] = true;
 		int shortCnt = 0;
 		while(!q.isEmpty()) {
 			int cur = q.poll();
@@ -88,8 +85,7 @@ public class Solution {
 				shortCnt++;
 			}
 		}
-		students[start][0] = tallCnt;
-		students[start][1] = shortCnt;
+		if(tallCnt + shortCnt == N - 1) canKnow++;
 	}
 }
 /*
