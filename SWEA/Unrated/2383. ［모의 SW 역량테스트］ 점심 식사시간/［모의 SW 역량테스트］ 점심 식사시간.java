@@ -1,5 +1,3 @@
-
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,19 +6,13 @@ import java.util.Collections;
 import java.util.StringTokenizer;
 
 public class Solution {
-	static final int M = 1, W = 2, D = 3, C = 4; // M: 이동 중, W: 대기 중 D: 내려가는 중 C: 완료
 	static class Person implements Comparable<Person>{
-		int r, c, status, arrivalTime, downCnt; // 행, 열, 상태, 계단 입구 도착 시간, 내려간 계단 수
+		int r, c, arrivalTime; // 행, 열,계단 입구 도착 시간
 
 		public Person(int r, int c) {
 			super();
 			this.r = r;
 			this.c = c;
-		}
-		
-		void init() {
-			arrivalTime = downCnt = 0;
-			status = M;
 		}
 
 		@Override
@@ -82,7 +74,6 @@ public class Solution {
 		
 		for(int i = 0; i < cnt; i++) {
 			Person p = pList.get(i);
-			p.init();
 			int no = selected[i];
 			
 			p.arrivalTime = Math.abs(p.r - sList[no][0]) + Math.abs(p.c - sList[no][1]);
