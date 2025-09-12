@@ -1,4 +1,5 @@
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -99,35 +100,16 @@ public class Solution {
 	private static int processDown(ArrayList<Person> list, int height) {
 		if(list.size() == 0) return 0;
 		Collections.sort(list); // 계단 오름차순 기준 오름차순 정렬
+		int size = list.size() + 3; // padding: 3
+		int[] D = new int[size]; // 3인덱스: 계단 입구에 가장 빨리 도착한 사람을 의미, 4인덱스: 그 다음도착 ...
 		
-		int time = list.get(0).arrivalTime; // 첫 번째 사람의 도착시간부터 시작
-		int size = list.size(); // 이 계단을 이용하는 사람 수
-		int ingCnt = 0, cCnt = 0; // 계단을 내려가고 있는 사람 수, 완료된 사람 수
+		for(int i = 3; i < size; i++) {
+			Person p = list.get(i - 3);
+			if(D[i-3] <= p.arrivalTime + 1) D[i] = p.arrivalTime + 1 + height;
+			else D[i] = D[i - 3] + height;
+		} 
 		
-		while(true) { // 매 분마다 사람들의 상태를 업데이트
-			for (int i = 0; i < size; i++) {
-				Person p = list.get(i);
-				if(p.status == C) continue; // 이미 계단을 다 내려간 사람이면 continue
-				if(p.arrivalTime == time) {
-					p.status = W;
-				} else if(p.status == W && ingCnt < 3) {
-					p.status = D;
-					p.downCnt = 1;
-					++ingCnt;
-				} else if(p.status == D) {
-					if(p.downCnt < height) {
-						p.downCnt++;
-					} else {
-						p.status = C;
-						--ingCnt;
-						++cCnt;
-					}
-				}
-				
-			}
-			if(cCnt == size) break;
-			++time;
-		}
-		return time;
+		
+		return D[size - 1];
 	}
 }
