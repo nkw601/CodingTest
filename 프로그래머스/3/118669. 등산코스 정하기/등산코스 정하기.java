@@ -1,6 +1,8 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 class Solution {
     private int minIntensity = Integer.MAX_VALUE;
@@ -24,7 +26,7 @@ class Solution {
         
         makeAdjList(paths);
         
-        dijkstra(n, paths, gates, summits);
+        find(n, paths, gates, summits);
         
         int minInt = Integer.MAX_VALUE;
         int minPeek = 0;
@@ -52,17 +54,17 @@ class Solution {
 		}
 	}
 
-	private void dijkstra(int n, int[][] paths, int[] gates, int[] summits) {
-		PriorityQueue<int[]> pq = new PriorityQueue<>((o1, o2) -> Integer.compare(o1[1], o2[1]));
+	private void find(int n, int[][] paths, int[] gates, int[] summits) {
+		Queue<int[]> q = new ArrayDeque<>();
 		
 		// 출발지 넣기
 		for(int gate : gates) {
-			pq.offer(new int[] {gate, 0}); // 현위치, intensity
+			q.offer(new int[] {gate, 0}); // 현위치, intensity
 			intense[gate] = 0;
 		}
 		
-		while(!pq.isEmpty()) {
-			int[] cur = pq.poll();
+		while(!q.isEmpty()) {
+			int[] cur = q.poll();
 			int curPoint = cur[0];
 			int curInten = cur[1];
 			
@@ -91,7 +93,7 @@ class Solution {
 					// 갱신하고
 					intense[nextPoint] = nextInten;
 					// 넣고
-					pq.offer(new int[] {nextPoint, nextInten});
+					q.offer(new int[] {nextPoint, nextInten});
 				}
 			}
 			
