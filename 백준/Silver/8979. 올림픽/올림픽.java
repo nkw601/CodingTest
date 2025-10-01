@@ -20,10 +20,12 @@ public class Main {
 		medals = new int[N + 1][3];
 		for(int i = 1; i <= N; i++) {
 			st = new StringTokenizer(br.readLine());
-			medals[i][0] = Integer.parseInt(st.nextToken()); // 금
-			medals[i][1] = Integer.parseInt(st.nextToken()); // 은
-			medals[i][2] = Integer.parseInt(st.nextToken()); // 동
+			int num = Integer.parseInt(st.nextToken());
+			medals[num][0] = Integer.parseInt(st.nextToken()); // 금
+			medals[num][1] = Integer.parseInt(st.nextToken()); // 은
+			medals[num][2] = Integer.parseInt(st.nextToken()); // 동
 		}
+		
 		int winner = 0;
 		int gold = medals[K][0];
 		int silv = medals[K][1];
