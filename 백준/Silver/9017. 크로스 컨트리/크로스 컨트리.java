@@ -43,45 +43,42 @@ public class Main {
 				// 6명 안되면 넘어가
 				if(teams[teamNum] < 6) continue;
 				
+				// 이미 존재하면 rank 추가해줌
 				if(ranks.containsKey(teamNum)) {
 					ranks.get(teamNum).add(rank++);
-				} else {
+				} else { // 처음 등장하는 팀이면 ArrayList 새로 만들어서 넣어줌
 					ArrayList<Integer> team = new ArrayList<>();
 					team.add(rank++);
 					ranks.put(teamNum, team);
 				}				
 			}
 			
-			
-			
-			
 			int winner = -1;
 			int minSum = Integer.MAX_VALUE;
 			int fifth = Integer.MAX_VALUE;
+			
 			for(int key : ranks.keySet()) {
 				ArrayList<Integer> cur = ranks.get(key);
 				if(cur.size() < 6) continue;
 				int sum = 0;
 				
 				Collections.sort(cur);
-				// 결승선 통과 합
+				// 결승선 통과한 사람들 더하기
 				for(int i = 0; i < 4; i++) {
 					sum += cur.get(i);
 				}
 
-				if(minSum > sum) {
+				if(minSum > sum) { // 더 빠르면
 					winner = key;
 					minSum = sum;
 					fifth = cur.get(4);
-					
 				} else if(minSum == sum) {
 					if(fifth > cur.get(4)) {
 						winner = key;
 						fifth = cur.get(4);
 					}
 				}
-			}	
-			
+			}
 			sb.append(winner).append("\n");
 		}
 		System.out.println(sb);
