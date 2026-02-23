@@ -1,10 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
@@ -22,24 +19,17 @@ public class Main {
             wordSet.add(br.readLine());
         }
 
-        int size = wordSet.size();
-        String[] words = new String[size];
+        ArrayList<String> words = new ArrayList<>(wordSet);
 
-        int cnt = 0;
-        for(String w : wordSet) {
-            words[cnt++] = w;
-        }
-
-        Arrays.sort(words, (s1, s2) ->  {
+        words.sort((s1, s2) ->  {
             if(s1.length() == s2.length()) {
                 return s1.compareTo(s2);
             }
             return Integer.compare(s1.length(), s2.length());
         });
 
-
-        for(int i = 0; i < size; i++) {
-            sb.append(words[i]).append("\n");
+        for(String s : words) {
+            sb.append(s).append('\n');
         }
 
         System.out.print(sb);
