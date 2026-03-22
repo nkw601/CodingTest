@@ -34,7 +34,6 @@ public class Main {
 			if (time > visited[cur[0]]) continue;
 			if(cur[0] == K) return time;
 
-			// 더하기
 			int add = cur[0] + 1;
 			int minus = cur[0] - 1;
 			int multi = cur[0] * 2;
@@ -57,23 +56,3 @@ public class Main {
 		return -1;
 	}
 }
-
-/*
- * 입력
- * N K(수빈, 동생)
- * 
- * 출력
- * 동생을 찾는 최소 시간
- * 
- * 이해
- * 1. 수빈이의 행동
- * - 걷기: X - 1 // X + 1(1초)
- * - 순간이동: 2*X(0초)
- * 
- * 생각
- * 걍 BFS 아닌가?
- * 아 시간 터질듯
- * DP? 아니 DP라고? DP 아니지,, -1이 있는데..
- * 다익이었던 것 같은데
- * 이게 어떻게 다익스트라일까~...
- */
